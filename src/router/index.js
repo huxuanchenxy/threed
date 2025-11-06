@@ -17,6 +17,19 @@ const routes = [
     meta: { requiresAuth: true }
   },
 
+    {
+    path: '/glb',
+    name: 'glb',
+    component: () => import('@/views/glb.vue'), // ← 新建的布局壳
+    meta: { requiresAuth: true }
+  },
+
+      {
+    path: '/robotcontrol',
+    name: 'robotcontrol',
+    component: () => import('@/views/robotcontrol.vue'), // ← 新建的布局壳
+    meta: { requiresAuth: true }
+  },
   // 3. 真正的 404 通配，只能放最后
   // 如果暂时不想做 404 页，可以先不写这一条
   // {
@@ -31,15 +44,15 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const hasToken = getToken()
-  if (to.meta?.requiresAuth && !hasToken) {
-    next('/login')
-  } else if (to.path === '/login' && hasToken) {
-    next('/')
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   const hasToken = getToken()
+//   if (to.meta?.requiresAuth && !hasToken) {
+//     next('/login')
+//   } else if (to.path === '/login' && hasToken) {
+//     next('/')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

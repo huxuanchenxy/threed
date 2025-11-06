@@ -69,22 +69,22 @@ api.interceptors.response.use(
     closeLoading()
     console.error('API错误:', error,import.meta.env.VITE_API_BASE_URL)
 
-    if (error.response?.status === 401) {
-      if (!isShowingAuthError) {
-        isShowingAuthError = true
-        ElMessage.error('登录已过期，请重新登录')
+    // if (error.response?.status === 401) {
+    //   if (!isShowingAuthError) {
+    //     isShowingAuthError = true
+    //     ElMessage.error('登录已过期，请重新登录')
 
-        removeToken()
+    //     removeToken()
 
-        // 跳转到登录页
-        router.push('/login')
+    //     // 跳转到登录页
+    //     router.push('/login')
 
-        // 一段时间后允许再次提示（防止永久锁死）
-        setTimeout(() => {
-          isShowingAuthError = false
-        }, 3000)
-      }
-    }
+    //     // 一段时间后允许再次提示（防止永久锁死）
+    //     setTimeout(() => {
+    //       isShowingAuthError = false
+    //     }, 3000)
+    //   }
+    // }
     return Promise.reject(error)
   }
 )
