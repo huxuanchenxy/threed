@@ -6,7 +6,7 @@
       clearable
       style="width: 300px; margin-right: 10px"
     />
-    <el-button
+    <!-- <el-button
       type="success"
       :loading="loading"
       @click="handleWriteNode(1)"
@@ -19,6 +19,23 @@
       @click="handleWriteNode(0)"
     >
       关闭
+    </el-button> -->
+
+        <!-- 新增“转动”按钮 -->
+    <el-button
+      type="primary"
+      :loading="loading"
+      @click="handleRotate(20)"
+    >
+      转动
+    </el-button>
+
+    <el-button
+      type="primary"
+      :loading="loading"
+      @click="handleRotate(-20)"
+    >
+      转动(反)
     </el-button>
 
     <el-alert
@@ -87,6 +104,14 @@ async function writeNode(value) {
 
 /* ---------- 按钮事件 ---------- */
 const handleWriteNode = writeNode
+
+/* ---------- 新增：转动按钮事件 ---------- */
+function handleRotate(dir) {
+  // 构造 value：3800,当前时间戳
+  const value = `3800,${dir},${Date.now()}`
+  // 直接调用写节点方法
+  writeNode(value)
+}
 </script>
 
 <style scoped>
