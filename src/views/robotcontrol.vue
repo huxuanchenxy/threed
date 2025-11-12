@@ -25,17 +25,33 @@
     <el-button
       type="primary"
       :loading="loading"
-      @click="handleRotate(20)"
+      @click="handleRotate(3800,20)"
     >
-      转动
+      小臂转动
     </el-button>
 
     <el-button
       type="primary"
       :loading="loading"
-      @click="handleRotate(-20)"
+      @click="handleRotate(3800,-20)"
     >
-      转动(反)
+      小臂转动(反)
+    </el-button>
+
+        <el-button
+      type="primary"
+      :loading="loading"
+      @click="handleRotate(3700,20)"
+    >
+      大臂转动
+    </el-button>
+
+    <el-button
+      type="primary"
+      :loading="loading"
+      @click="handleRotate(3700,-20)"
+    >
+      大臂转动(反)
     </el-button>
 
     <el-alert
@@ -106,9 +122,9 @@ async function writeNode(value) {
 const handleWriteNode = writeNode
 
 /* ---------- 新增：转动按钮事件 ---------- */
-function handleRotate(dir) {
+function handleRotate(bonecode,dir) {
   // 构造 value：3800,当前时间戳
-  const value = `3800,${dir},${Date.now()}`
+  const value = `${bonecode},${dir},${Date.now()}`
   // 直接调用写节点方法
   writeNode(value)
 }
