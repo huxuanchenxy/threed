@@ -21,13 +21,28 @@
       关闭
     </el-button> -->
 
+
+    <!-- 新增：骨骼名下拉框 -->
+    <el-select
+      v-model="bonename"
+      placeholder="请选择骨骼"
+      style="width: 180px; margin-right: 10px"
+    >
+      <el-option
+        v-for="item in boneOptions"
+        :key="item"
+        :label="item"
+        :value="item"
+      />
+    </el-select>
+
         <!-- 新增“转动”按钮 -->
     <el-button
       type="primary"
       :loading="loading"
       @click="handleRotate(3800,20)"
     >
-      小臂转动
+      转动
     </el-button>
 
     <el-button
@@ -35,24 +50,9 @@
       :loading="loading"
       @click="handleRotate(3800,-20)"
     >
-      小臂转动(反)
+      转动(反)
     </el-button>
 
-        <el-button
-      type="primary"
-      :loading="loading"
-      @click="handleRotate(3700,20)"
-    >
-      大臂转动
-    </el-button>
-
-    <el-button
-      type="primary"
-      :loading="loading"
-      @click="handleRotate(3700,-20)"
-    >
-      大臂转动(反)
-    </el-button>
 
     <el-alert
       v-if="message.text"
@@ -73,6 +73,22 @@ const token   = ref('')
 const loading = ref(false)
 const message = ref({ text: '', type: 'info' })
 
+/* ---------- 新增：骨骼名下拉框 ---------- */
+const bonename = ref('Shoulder_01')   // 默认选中第一项
+const boneOptions = [
+  '_rootJoint',
+  'Base_00',
+  'Shoulder_01',
+  'Core_02',
+  'Core001_03',
+  'Motor_04',
+  'ArmLong_05',
+  'ArmLong_2_06',
+  'ArmShort_07',
+  'ArmShorter_08',
+  'ArmShortest_09',
+  'ArmShortest_end_010'
+]
 /* ---------- 核心：写节点 ---------- */
 async function writeNode(value) {
   if (!token.value.trim()) {
@@ -124,7 +140,8 @@ const handleWriteNode = writeNode
 /* ---------- 新增：转动按钮事件 ---------- */
 function handleRotate(bonecode,dir) {
   // 构造 value：3800,当前时间戳
-  const value = `${bonecode},${dir},${Date.now()}`
+  // const value = `${bonecode},${dir},${Date.now()}`
+  const value = `${bonecode},${dir},${bonename.value},${Date.now()}`
   // 直接调用写节点方法
   writeNode(value)
 }
